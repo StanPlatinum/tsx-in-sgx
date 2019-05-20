@@ -1,11 +1,11 @@
-ALL := hle2
+ALL := rtm-test
 CLEAN := ${ALL}
 
 CFLAGS := -Wall -g -I .. -O2
 
 all: ${ALL}
 
-hle2.c: ./hle-ms.h
+rtm-test.c: ./rtm.h
 
 clean:
 	rm -f ${CLEAN}
