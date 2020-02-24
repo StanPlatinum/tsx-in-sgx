@@ -21,17 +21,17 @@ int main(void)
 	/* test 0 */
 	printf("---test0---\n");
 	while(1){ 	// keep trying
-	    int status = _xbegin(); 	// set status = -1 and start transaction
-	    printf("status now: %d\n", status);
+		int status = _xbegin(); 	// set status = -1 and start transaction
+		printf("status now: %d\n", status);
 
-	    if (status == _XBEGIN_STARTED) { // status == XBEGIN_STARTED == -1
-		printf("entering into test0's trans...\n");
-		(*g)++;	 // non atomic increment of shared global variable
-		_xend(); // end transaction
-		break;	 // break on success
-            } else { 
-	        printf("aborts..., *g = %d\n", (*g));	 // code here executed if transaction aborts
-	    } 
+		if (status == _XBEGIN_STARTED) { // status == XBEGIN_STARTED == -1
+			printf("entering into test0's trans...\n");
+			(*g)++;	 // non atomic increment of shared global variable
+			_xend(); // end transaction
+			break;	 // break on success
+		} else { 
+			printf("aborts..., *g = %d\n", (*g));	 // code here executed if transaction aborts
+		} 
 	}
 
 	/* test 1 */
@@ -41,8 +41,8 @@ int main(void)
 		printf("transaction started...\n");
 		if (_xtest())
 			xtest_status = _xtest();
-			printf("testing if in a trans..., xtest_status: %d\n", xtest_status);
-			_xabort(2);
+		printf("testing if in a trans..., xtest_status: %d\n", xtest_status);
+		_xabort(2);
 		_xend();
 	} else
 		printf("aborted %x, %d\n", status, _XABORT_CODE(status));
@@ -51,16 +51,16 @@ int main(void)
 	status = 0;
 	printf("---test2---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
-	//if(_xbegin() == -1) {
-	    printf("transaction begins...\n");
-	    mutex = 1;
-        } else {
-            // #pragma omp critical
-	    printf("mutex: %d\n", mutex);
-	    printf("nonce: %d\n", nonce);
-            _xabort(0);
-        }
+		//if(_xbegin() == -1) {
+		printf("transaction begins...\n");
+		mutex = 1;
+	} else {
+		// #pragma omp critical
+		printf("mutex: %d\n", mutex);
+		printf("nonce: %d\n", nonce);
+		_xabort(0);
+	}
 	_xend();
 
 	return 0;
-}
+	}

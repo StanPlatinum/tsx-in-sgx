@@ -16,8 +16,7 @@
 extern "C" {
 #endif
 
-
-void hle_test();
+void hle_test(void);
 
 sgx_status_t SGX_CDECL Ocall_PrintString(const char* str);
 

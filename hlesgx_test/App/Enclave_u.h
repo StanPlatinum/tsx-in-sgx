@@ -17,7 +17,10 @@
 extern "C" {
 #endif
 
+#ifndef OCALL_PRINTSTRING_DEFINED__
+#define OCALL_PRINTSTRING_DEFINED__
 void SGX_UBRIDGE(SGX_NOCONVENTION, Ocall_PrintString, (const char* str));
+#endif
 
 sgx_status_t hle_test(sgx_enclave_id_t eid);
 

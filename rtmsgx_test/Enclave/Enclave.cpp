@@ -30,8 +30,10 @@ void rtm_test(){
 
 	PrintDebugInfo("--- test 2 ---\n");
         if ((status = _xbegin()) == _XBEGIN_STARTED) {
-                if (_xtest())
-                        _xabort(2);
+                if (_xtest()) {
+					PrintDebugInfo("in _xtest()\n");
+                    _xabort(2);
+				}
                 _xend();
         } else
                 PrintDebugInfo("aborted %x, %d\n", status, _XABORT_CODE(status));
