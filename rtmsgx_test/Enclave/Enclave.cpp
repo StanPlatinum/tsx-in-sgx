@@ -22,11 +22,11 @@ void rtm_test(){
 	PrintDebugInfo("--- test 1 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		mutex = 1;
+		_xend();
 	} else {
 		_xabort(0);
 		PrintDebugInfo("xabort works...\n");
 	}
-	_xend();
 
 	PrintDebugInfo("--- test 2 ---\n");
         if ((status = _xbegin()) == _XBEGIN_STARTED) {
