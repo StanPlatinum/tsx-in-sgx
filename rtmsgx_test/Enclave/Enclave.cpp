@@ -25,7 +25,7 @@ void rtm_test(){
 		_xend();
 	} else {
 		//_xabort(0);
-		//PrintDebugInfo("xabort works...\n");
+		PrintDebugInfo("trans failed...\n");
 	}
 	PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 
