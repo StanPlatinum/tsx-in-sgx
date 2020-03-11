@@ -12,7 +12,7 @@ int main(void)
 	int nonce = 0;
 	int mutex = 0;
 
-	int xtest_status;
+	int xtest_status = 0;
 
 	int i = 0;
 	int *g;
@@ -20,12 +20,10 @@ int main(void)
 
 	/* test 0 */
 	printf("---test0---\n");
-	while(1){ 	// keep trying
+	while(i < 100){ 	// keep trying 100 times
 		int status = _xbegin(); 	// set status = -1 and start transaction
-		printf("status now: %d\n", status);
-
 		if (status == _XBEGIN_STARTED) { // status == XBEGIN_STARTED == -1
-			printf("entering into test0's trans...\n");
+			//printf("entering into test0's trans...\n");
 			(*g)++;	 // non atomic increment of shared global variable
 			_xend(); // end transaction
 			break;	 // break on success
@@ -38,29 +36,28 @@ int main(void)
 	status = 0;
 	printf("---test1---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
-		printf("transaction started...\n");
 		if (_xtest())
 			xtest_status = _xtest();
-		printf("testing if in a trans..., xtest_status: %d\n", xtest_status);
-		_xabort(2);
+		//Weijie: try to use xabort
+		//_xabort(2);
 		_xend();
 	} else
 		printf("aborted %x, %d\n", status, _XABORT_CODE(status));
+	printf("testing if in a trans..., xtest_status: %d\n", xtest_status);
 
 	/* test 2 */
 	status = 0;
 	printf("---test2---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
-		//if(_xbegin() == -1) {
-		printf("transaction begins...\n");
 		mutex = 1;
+		//printf("use printf to abort ...\n");
+		_xend();
 	} else {
 		// #pragma omp critical
 		printf("mutex: %d\n", mutex);
 		printf("nonce: %d\n", nonce);
-		_xabort(0);
 	}
-	_xend();
 
+	printf("test finished\n");
 	return 0;
-	}
+}

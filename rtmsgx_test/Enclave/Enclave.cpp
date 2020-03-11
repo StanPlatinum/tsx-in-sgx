@@ -24,19 +24,32 @@ void rtm_test(){
 		mutex = 1;
 		_xend();
 	} else {
-		_xabort(0);
-		PrintDebugInfo("xabort works...\n");
+		//_xabort(0);
+		//PrintDebugInfo("xabort works...\n");
 	}
+	PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 
+#if 0
 	PrintDebugInfo("--- test 2 ---\n");
-        if ((status = _xbegin()) == _XBEGIN_STARTED) {
-                if (_xtest()) {
-					PrintDebugInfo("in _xtest()\n");
-                    _xabort(2);
-				}
-                _xend();
-        } else
-                PrintDebugInfo("aborted %x, %d\n", status, _XABORT_CODE(status));
+	if ((status = _xbegin()) == _XBEGIN_STARTED) {
+		mutex = 2;
+		_xend();
+	}
+	else {
+		_xabort(1);
+		PrintDebugInfo("entering fallback:\n");
+		PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
+	}
+#endif
 
+	PrintDebugInfo("--- test 3 ---\n");
+	if ((status = _xbegin()) == _XBEGIN_STARTED) {
+		if (_xtest()) {
+			_xabort(3);
+			//PrintDebugInfo("in _xtest()\n");
+		}
+		_xend();
+	} else
+		PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 
 }
