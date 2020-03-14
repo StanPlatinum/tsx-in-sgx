@@ -43,6 +43,10 @@ int main(void)
 		_xend();
 	} else
 		printf("aborted %x, %d\n", status, _XABORT_CODE(status));
+	
+	//Weijie: check the xabort code after trans
+	//Weijie: turns out if no _xabort code was specified, the default value would be 255
+	printf("aborted %x, %d\n", status, _XABORT_CODE(status));
 	printf("testing if in a trans..., xtest_status: %d\n", xtest_status);
 
 	/* test 2 */
