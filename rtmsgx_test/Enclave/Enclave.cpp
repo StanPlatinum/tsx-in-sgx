@@ -21,31 +21,29 @@ void rtm_test(){
 
 	PrintDebugInfo("--- test 1 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
-		mutex = 1;
+		//mutex = 1;
 		_xend();
 	} else {
-		//_xabort(0);
 		PrintDebugInfo("trans failed...\n");
 	}
 	PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 
-#if 0
 	PrintDebugInfo("--- test 2 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		mutex = 2;
+		_xabort(1);
 		_xend();
 	}
 	else {
-		_xabort(1);
 		PrintDebugInfo("entering fallback:\n");
 		PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 	}
-#endif
 
 	PrintDebugInfo("--- test 3 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		if (_xtest()) {
-			_xabort(3);
+			//Weijie: teset xabort
+			//_xabort(3);
 			//PrintDebugInfo("in _xtest()\n");
 		}
 		_xend();
