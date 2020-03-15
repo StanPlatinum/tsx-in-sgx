@@ -26,7 +26,7 @@ int main(void)
 			//printf("entering into test0's trans...\n");
 			(*g)++;	 // non atomic increment of shared global variable
 			_xend(); // end transaction
-			break;	 // break on success
+			//break;	 // break on success
 		} else { 
 			printf("aborts..., *g = %d\n", (*g));	 // code here executed if transaction aborts
 		} 
