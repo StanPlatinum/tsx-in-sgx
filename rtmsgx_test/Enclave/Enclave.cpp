@@ -21,7 +21,7 @@ void rtm_test(){
 
 	PrintDebugInfo("--- test 1 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
-		//mutex = 1;
+		mutex = 1;
 		_xend();
 	} else {
 		PrintDebugInfo("trans failed...\n");
@@ -42,9 +42,6 @@ void rtm_test(){
 	PrintDebugInfo("--- test 3 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		if (_xtest()) {
-			//Weijie: teset xabort
-			//_xabort(3);
-			//PrintDebugInfo("in _xtest()\n");
 		}
 		_xend();
 	} else
