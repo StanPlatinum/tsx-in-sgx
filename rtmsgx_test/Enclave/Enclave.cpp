@@ -14,11 +14,9 @@ void PrintDebugInfo(const char *fmt, ...)
 	va_end(ap);
 	Ocall_PrintString(buf);
 }
-void rtm_test(){
-	int status;
-	int nonce = 0;
+void rtm_test1(){
 	int mutex = 0;
-	int xtest_status = 0;
+	int status;
 
 	PrintDebugInfo("--- test 1 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
@@ -28,7 +26,12 @@ void rtm_test(){
 		PrintDebugInfo("trans failed...\n");
 	}
 	PrintDebugInfo("trans finished.\n");
+}
 
+void rtm_test2(){
+	int mutex = 0;
+	int status;
+	
 	PrintDebugInfo("--- test 2 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		mutex = 2;
@@ -39,7 +42,14 @@ void rtm_test(){
 		PrintDebugInfo("entering fallback:\n");
 		PrintDebugInfo("aborted status %x, # %d\n", status, _XABORT_CODE(status));
 	}
+}
 
+void rtm_test3(){
+	int mutex = 0;
+	int status;
+	int nonce = 0;
+	int xtest_status = 0;
+	
 	PrintDebugInfo("--- test 3 ---\n");
 	if ((status = _xbegin()) == _XBEGIN_STARTED) {
 		if (_xtest()) {

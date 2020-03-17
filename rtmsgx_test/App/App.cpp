@@ -240,9 +240,11 @@ int SGX_CDECL main(int argc, char *argv[])
     /*
      * to-do
      */ 
-    rtm_test(global_eid);
+    rtm_test1(global_eid);
+    rtm_test2(global_eid);
+    rtm_test3(global_eid);
 
-	printf("rtm tests successfully\n");
+	printf("rtm tests finished\n");
     /* Destroy the enclave */
     sgx_destroy_enclave(global_eid);
     

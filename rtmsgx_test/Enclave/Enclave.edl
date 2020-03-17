@@ -42,7 +42,9 @@ enclave {
      */
     
     trusted{
-	public void rtm_test();
+	public void rtm_test1();
+	public void rtm_test2();
+	public void rtm_test3();
     };
 
     untrusted {
